@@ -1,21 +1,46 @@
 package com.fon.student_tracker.controller;
 
 import com.fon.student_tracker.domain.Smer;
+import com.fon.student_tracker.dto.SmerResponse;
+import com.fon.student_tracker.dto.SmerRequest;
 import com.fon.student_tracker.service.SmerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/smer")
 public class SmerController {
     private final SmerService smerService;
 
-    @PostMapping("/api/smer")
-    public Smer create(@RequestBody Smer smer) {
-        return smerService.create(smer);
+    @PostMapping
+    public SmerResponse create(@RequestBody SmerRequest smerRequest) {
+        log.info("Creating smer {}",smerRequest);
+        return smerService.create(smerRequest);
     }
+
+    @GetMapping
+    public List<SmerResponse> findAll() {
+        log.info("Finding all smers");
+        return smerService.findAll();
+    }
+
+    @GetMapping("{id}")
+    public SmerResponse findById(@PathVariable Long id) {
+        log.info("Finding smer by id {}",id);
+        return smerService.findById(id);
+    }
+
+    /*
+    TRACE,
+    DEBUG,
+    INFO,
+    WARN,
+    ERROR
+     */
+
 }
