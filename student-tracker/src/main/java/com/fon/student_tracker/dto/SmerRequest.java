@@ -1,6 +1,13 @@
 package com.fon.student_tracker.dto;
 
-public record SmerRequest(String naziv){
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record SmerRequest(
+        @NotBlank(message = "Naziv is required")
+        @Size(max = 50,message = "Naziv should not exceed 50 characters")
+        String naziv){
+
 
 }
 

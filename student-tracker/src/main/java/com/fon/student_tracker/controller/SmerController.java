@@ -4,6 +4,7 @@ import com.fon.student_tracker.domain.Smer;
 import com.fon.student_tracker.dto.SmerResponse;
 import com.fon.student_tracker.dto.SmerRequest;
 import com.fon.student_tracker.service.SmerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class SmerController {
     private final SmerService smerService;
 
     @PostMapping
-    public SmerResponse create(@RequestBody SmerRequest smerRequest) {
+    public SmerResponse create(@RequestBody @Valid SmerRequest smerRequest) {
         log.info("Creating smer {}",smerRequest);
         return smerService.create(smerRequest);
     }

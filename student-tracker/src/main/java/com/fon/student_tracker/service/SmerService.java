@@ -19,6 +19,10 @@ public class SmerService {
     private final SmerRepository smerRepository;
 
     public SmerResponse create(SmerRequest smerRequest) {
+        if(smerRequest.naziv().length()>50){
+            throw new RuntimeException("Naziv length exceeded");
+        }
+
         Smer smer = new Smer();
         smer.setNaziv(smerRequest.naziv());//todo extract at home
 
