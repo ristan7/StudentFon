@@ -19,9 +19,9 @@ public class SmerService {
     private final SmerRepository smerRepository;
 
     public SmerResponse create(SmerRequest smerRequest) {
-        if(smerRequest.naziv().length()>50){
-            throw new RuntimeException("Naziv length exceeded");
-        }
+//        if(smerRequest.naziv().length()>50){
+//            throw new RuntimeException("Naziv length exceeded");
+//        }
 
         Smer smer = new Smer();
         smer.setNaziv(smerRequest.naziv());//todo extract at home
@@ -37,10 +37,14 @@ public class SmerService {
 
 
     public SmerResponse findById(Long id) {
+        return SmerResponse.from(findByIdInternal(id));
+    }
+
+    public Smer findByIdInternal(Long id) {
         Optional<Smer> smer = smerRepository.findById(id);
 
         if(smer.isPresent()) {
-            return SmerResponse.from(smer.get());
+            return smer.get();
         }
 
         throw new RuntimeException("Smer not found");
